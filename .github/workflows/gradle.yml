@@ -28,7 +28,7 @@ jobs:
     - name: GRADLE BUILD DOCKER IMAGE
       env:
         IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
-        IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{env.GITHUB_SHA::8}}"
+        IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
       run: |
         chmod +x gradlew
         ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
@@ -40,5 +40,7 @@ jobs:
       run: |
         docker push "$IMAGE_NAME" --all-tags
     - name: WRAP UP
+      env:
+        SHA8: ${GITHUB_SHA::8}
       run: |
-        echo "FIN."
+        echo "FIN. SHA8 is ${SHA8}"
