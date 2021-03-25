@@ -11,9 +11,6 @@ on:
 
 jobs:
   build:
-    env:
-      IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
-      IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
     runs-on: ubuntu-latest
     steps:
     - name: checkout
@@ -29,11 +26,16 @@ jobs:
       run: |
         echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: GRADLE BUILD DOCKER IMAGE
+      env:
+        IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
+        IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
       run: |
         chmod +x gradlew
         ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
         docker tag "$IMAGE_NAME:latest" "$IMAGE_GITSHA"
     - name: DOCKER HUB PUSH
+      env:
+        IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
       run: |
         docker push "$IMAGE_NAME:latest"
     - name: WRAP UP
