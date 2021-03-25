@@ -35,7 +35,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       env:
-        IMAGE_NAME_1 = "${{env.DOCKERHUB_USERNAME}}/${{env.REPO}}"
+        IMAGE_NAME_1: "${{env.DOCKERHUB_USERNAME}}/${{env.REPO}}"
       run: |
         echo "The IMAGE IS ${IMAGE_NAME_1}"
         echo "FIN."
