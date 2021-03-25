@@ -33,12 +33,12 @@ jobs:
         chmod +x gradlew
         ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
         docker tag "$IMAGE_NAME" "$IMAGE_GITSHA"
-        docker image list
+        docker images
     - name: DOCKER HUB PUSH
       env:
         IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
       run: |
-        docker push "$IMAGE_NAME"
+        docker push "$IMAGE_NAME" --all-tags
     - name: WRAP UP
       run: |
         echo "FIN."
