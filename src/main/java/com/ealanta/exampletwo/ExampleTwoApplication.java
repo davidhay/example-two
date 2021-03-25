@@ -1,6 +1,7 @@
 package com.ealanta.exampletwo;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -25,4 +26,10 @@ public class ExampleTwoApplication {
 		return Clock.system(zoneId);
 	}
 
+	@Bean
+	public CommandLineRunner runner(@Value("${info.git.sha}") String gitSha) {
+		return (String... args) -> {
+			System.out.printf("The Git Commit Hash is [%s]",gitSha);
+		};
+	}
 }
