@@ -32,7 +32,7 @@ jobs:
         IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{env.SHORT_SHA}}"
       run: |
         chmod +x gradlew
-        ./gradlew bootBuildImage -DGIT_SHA=${{github.sha}}--imageName="$IMAGE_NAME"
+        ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
         docker tag "$IMAGE_NAME" "$IMAGE_GITSHA"
         docker images
     - name: DOCKERHUB PUSH
