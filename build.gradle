@@ -28,3 +28,9 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootBuildImage {
+	verboseLogging = true
+	environment = ["GIT_SHA" : "PLEASE_WORK"]
+}
+
