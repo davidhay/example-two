@@ -11,16 +11,6 @@ on:
 
 jobs:
 
-  prepare:
-    name: Prepare
-    runs-on: ubuntu-latest
-    outputs:
-      TEST_IMAGE_NAME: go-api-sample-${{ steps.short-sha.outputs.sha }}
-    steps:
-      - name: Parse short sha
-        uses: benjlevesque/short-sha@v1.1
-        id: short-sha
-
   build:
 
     needs: [prepare]
@@ -44,7 +34,7 @@ jobs:
         ./gradlew bootBuildImage --imageName=${{secrets.DOCKERHUB_USERNAME}}//${{env.DOCKERHUB_REPO}}
     - name: TAG with GIT SHA
       env:
-        GIT_SHA: ${{needs.prepare.outputs.TEST_IMAGE_NAME}}
+        GIT_SHA: ${{github.sha}}
       run: |
         docker tag ${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:latest ${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${GIT_SHA}
     - name: PUSH
