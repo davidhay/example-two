@@ -41,6 +41,6 @@ jobs:
         docker push "$IMAGE_NAME" --all-tags
     - name: WRAP UP
       env:
-        SHA8: ${GITHUB_SHA::8}
+        SHA8: ${{GITHUB_SHA::8}}
       run: |
         echo "FIN. SHA8 is ${SHA8}"
