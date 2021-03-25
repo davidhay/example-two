@@ -30,6 +30,7 @@ jobs:
         echo "DOCKERHUB_PASSWORD=${DOCKERHUB_PASSWORD}" >> $GITHUB_ENV
     - name: Login To Docker Hub
       run: |
+        echo "${{env.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_PASSWORD}}"
         docker login -u "${{env.DOCKERHUB_USERNAME}} -p "${{env.DOCKERHUB_PASSWORD}}"
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
