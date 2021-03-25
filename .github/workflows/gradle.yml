@@ -33,7 +33,7 @@ jobs:
       run: |
         chmod +x gradlew
         ./gradlew clean build
-        ./docker build . --build-arg argSHA=${{env.SHORT_SHA}} -t ${IMAGE_NAME}
+        docker build . --build-arg argSHA=${{env.SHORT_SHA}} -t ${IMAGE_NAME}
         docker tag "$IMAGE_NAME" "$IMAGE_GITSHA"
         docker images
     - name: DOCKERHUB PUSH
