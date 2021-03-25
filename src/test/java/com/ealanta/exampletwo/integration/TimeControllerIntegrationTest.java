@@ -12,13 +12,10 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TimeControllerIntegrationTest {
@@ -37,7 +34,7 @@ public class TimeControllerIntegrationTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void test() {
 
         FluxExchangeResult<Time> result = this.webTestClient
                 .get()
@@ -48,7 +45,7 @@ public class TimeControllerIntegrationTest {
 
         Time time = result.getResponseBody().blockFirst(Duration.of(3, SECONDS));
 
-        assertFalse(start.isAfter(time.getTime()));
+        assertFalse(start.isAfter(Objects.requireNonNull(time).getTime()));
     }
 
 }
