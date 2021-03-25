@@ -8,9 +8,13 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.Clock;
 import java.time.ZoneId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SpringBootApplication
 public class ExampleTwoApplication {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ExampleTwoApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExampleTwoApplication.class, args);
@@ -29,7 +33,8 @@ public class ExampleTwoApplication {
 	@Bean
 	public CommandLineRunner runner(@Value("${info.git.sha}") String gitSha) {
 		return (String... args) -> {
-			System.out.printf("The Git Commit Hash is [%s]",gitSha);
+			String msg = String.format("The Git Commit Hash is [%s]",gitSha);
+			LOG.info(msg);
 		};
 	}
 }
