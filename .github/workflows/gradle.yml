@@ -28,7 +28,7 @@ jobs:
     - name: GRADLE BUILD DOCKER IMAGE
       env:
         IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
-        IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
+        IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{env.GITHUB_SHA::8}}"
       run: |
         chmod +x gradlew
         ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
