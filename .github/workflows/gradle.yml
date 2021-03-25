@@ -31,4 +31,4 @@ jobs:
         IMAGE_NAME_1: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
       run: |
         echo "The IMAGE IS ${IMAGE_NAME_1}"
-        echo "FIN."
+        echo "FINN."
