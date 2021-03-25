@@ -11,8 +11,10 @@ on:
 
 jobs:
   build:
+    env:
+      IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
+      IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
     runs-on: ubuntu-latest
-
     steps:
     - name: checkout
       uses: actions/checkout@v2
@@ -27,9 +29,6 @@ jobs:
       run: |
         echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: GRADLE BUILD DOCKER IMAGE
-      env:
-        IMAGE_NAME:"${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"
-        IMAGE_GITSHA:"${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{github.sha}}"
       run: |
         chmod +x gradlew
         ./gradlew bootBuildImage --imageName="$IMAGE_NAME"
