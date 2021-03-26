@@ -17,10 +17,6 @@ public class InfoControllerMvcTest {
 
     private static final String SHA = "c212ece";
 
-    static {
-        System.setProperty("GIT_SHA", SHA);
-    }
-
     @Autowired
     MockMvc mockMvc;
 
