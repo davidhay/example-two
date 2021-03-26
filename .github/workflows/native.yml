@@ -5,9 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main ]
+    branches: [ native ]
   pull_request:
-    branches: [ main ]
+    branches: [ native ]
 
 jobs:
   build:
@@ -41,10 +41,8 @@ jobs:
         IMAGE_GITSHA: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}:${{env.SHORT_SHA}}"
       run: |
         chmod +x gradlew
-        ./gradlew clean build
-        docker build . --build-arg argSHA=${{env.SHORT_SHA}} -t ${IMAGE_NAME}
+        ./gradlew clean bootBuildImage --imageName=${IMAGE_NAME}
         docker tag "$IMAGE_NAME" "$IMAGE_GITSHA"
-        docker images
     - name: DOCKERHUB PUSH
       env:
         IMAGE_NAME: "${{secrets.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO}}"

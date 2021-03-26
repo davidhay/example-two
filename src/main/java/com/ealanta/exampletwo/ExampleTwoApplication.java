@@ -33,8 +33,16 @@ public class ExampleTwoApplication {
 	@Bean
 	public CommandLineRunner runner(@Value("${info.git.sha}") String gitSha) {
 		return (String... args) -> {
-			String msg = String.format("The Git Commit Hash is [%s]",gitSha);
+			String msg = String.format("OLD : The Git Commit Hash is [%s]",gitSha);
 			LOG.info(msg);
+
+			String systemShortSha = System.getProperty("SHORT_SHA");
+			String msg1 = String.format("NEW : SHORT SHA from System.getProperty()[%s]",systemShortSha);
+			LOG.info(msg1);
+
+			String envShortSha = System.getenv("SHORT_SHA");
+			String msg2 = String.format("NEW : SHORT SHA from System.getenv()[%s]",envShortSha);
+			LOG.info(msg2);
 		};
 	}
 }
