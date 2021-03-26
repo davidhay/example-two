@@ -13,9 +13,9 @@ public class InfoController {
     @Autowired
     private GitInfo gitInfo;
 
-    @RequestMapping(value = "/git", produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/git")
     @ResponseBody
-    String getGitSha(){
-        return gitInfo.getGitSha();
+    GitInfo getGitSha(){
+        return gitInfo;
     }
 }
