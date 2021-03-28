@@ -10,12 +10,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/info")
 public class InfoController {
 
-    @Autowired
-    private GitInfo gitInfo;
+    private final GitInfo info;
+
+    public InfoController(@Autowired GitInfo info){
+        this.info = info;
+    }
 
     @RequestMapping(value = "/git")
     @ResponseBody
     GitInfo getGitSha(){
-        return gitInfo;
+        return info;
     }
+
+    @RequestMapping(value = "/info")
+    @ResponseBody
+    GitInfo getGitTest(){
+        return new GitInfo("tada");
+    }
+
 }

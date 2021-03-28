@@ -12,8 +12,11 @@ import java.time.Clock;
 @RequestMapping("/api")
 public class TimeController {
 
-    @Autowired
-    private Clock clock;
+    private final Clock clock;
+
+    public TimeController(@Autowired Clock clock){
+        this.clock = clock;
+    }
 
     @ResponseBody
     @RequestMapping(path="/time", method = RequestMethod.GET)

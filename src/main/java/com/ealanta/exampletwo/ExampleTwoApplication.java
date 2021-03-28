@@ -10,10 +10,12 @@ import java.time.Clock;
 import java.time.ZoneId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource("classpath:git.properties")
+@Import({GitConfig.class, InfoController.class, TimeController.class})
 public class ExampleTwoApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ExampleTwoApplication.class);
