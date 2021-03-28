@@ -5,9 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ git-props ]
+    branches: [ * ]
   pull_request:
-    branches: [ git-props ]
+    branches: [ * ]
 
 jobs:
   build:
