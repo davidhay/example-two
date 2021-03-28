@@ -1,5 +1,8 @@
 package com.ealanta.exampletwo.mvc;
 
+import com.ealanta.exampletwo.GitInfo;
+import com.ealanta.exampletwo.Time;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,22 +20,22 @@ public class InfoControllerMvcTest {
 
     private static final String SHA = "c212ece";
 
-    static {
-        System.setProperty("GIT_SHA", SHA);
-    }
-
     @Autowired
     MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper mapper;
 
     @Test
     public void test() throws Exception {
         MvcResult mvc = mockMvc.perform(get("/info/git"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andReturn();
-        String gitSha = mvc.getResponse().getContentAsString();
-        assertEquals(SHA, gitSha);
+        String response = mvc.getResponse().getContentAsString();
+        GitInfo info = mapper.readValue(response, GitInfo.class);
+        assertEquals(info.getGitSha(), SHA);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.ealanta.exampletwo;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/info")
 public class InfoController {
 
-    @Value("${info.git.sha}")
-    private String gitSha;
+    @Autowired
+    private GitInfo gitInfo;
 
-    @RequestMapping(value = "/git", produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/git")
     @ResponseBody
-    String getGitSha(){
-        return gitSha;
+    GitInfo getGitSha(){
+        return gitInfo;
     }
 }
