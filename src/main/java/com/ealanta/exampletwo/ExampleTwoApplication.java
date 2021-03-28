@@ -1,6 +1,5 @@
 package com.ealanta.exampletwo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
-@PropertySource({"classpath:git.properties"})
+@PropertySource("classpath:git.properties")
 public class ExampleTwoApplication {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ExampleTwoApplication.class);
